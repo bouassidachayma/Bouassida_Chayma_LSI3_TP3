@@ -87,12 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Détermination des intervalles normaux
         if (aJeune) {
-            // AVANT LE REPAS (OU S'IL JEÛNE)
 
             if (age > 13) {
                 min = 5.0;
                 max = 7.2;
-            } else if (age >= 6 && age <= 12) {
+            } else if (age >= 6 ) {
                 min = 5.0;
                 max = 10.0;
             } else { // moins de 6 ans
@@ -100,32 +99,19 @@ public class MainActivity extends AppCompatActivity {
                 max = 10.0;
             }
 
-            // Comparaison avec l'intervalle
-            if (valeur < min) {
-                resultat = "Niveau de glycémie est trop bas";
-            } else if (valeur > max) {
-                resultat = "Niveau de glycémie est trop élevée";
-            } else {
-                resultat = "Niveau de glycémie est normale";
-            }
-
         } else {
-            // APRÈS LE REPAS (NON)
-            if (valeur < 10.5) {
-                resultat = "Niveau de glycémie est normale";
-            } else {
-                resultat = "Niveau de glycémie est trop élevée";
-            }
+            min = 0.0;
+            max = 10.5;
         }
 
-        // Affichage du résultat final
+        // Vérification du niveau de glycémie
+        if (valeur < min){
+            resultat = "Le niveau de glycémie est trop bas";
+        } else if (valeur > max){
+            resultat = "Le niveau de glycémie est trop élevé";
+        } else {
+            resultat = "le niveau de glycémie est normal";
+        }
         msg.setText(resultat);
-
-        // Bonus : Changer la couleur
-        if (resultat.contains("normale")) {
-            msg.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-        } else {
-            msg.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-        }
     }
 }
